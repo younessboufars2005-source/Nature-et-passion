@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { collections, collectionProducts } from '../../lib/catalogue';
+export function getStaticPaths() { return collections.map(([slug, title]) => ({ params: { slug }, props: { slug, title } })); }
+const { slug, title } = Astro.props;
+const list = collectionProducts(slug);
+---
+<BaseLayout title={`${title} – Nature & Passions`}>
+  <section>
+    <div class="collection-head"><h1>{title}</h1><p><span id="visible-count">{list.length}</span> produits</p></div>
+    <div class="toolbar">
+      <label>Disponibilité : <select id="availability"><option value="all">Tous</option><option value="true">En stock</option><option value="false">Épuisés</option></select></label>
+      <label>Trier par : <select id="sort"><option value="manual">En vedette</option><option value="price-asc">Prix croissant</option><option value="price-desc">Prix décroissant</option><option value="title">Alphabétique</option></select></label>
+    </div>
+    <div id="product-grid" class="product-grid">{list.map((product) => <ProductCard product={product}/>)}</div>
+  </section>
+</BaseLayout>
+<script is:inline>
+  const grid = document.querySelector('#product-grid');
+  const cards = grid ? [...grid.children] : [];
+  const count = document.querySelector('#visible-count');
+  const availability = document.querySelector('#availability');
+  const sort = document.querySelector('#sort');
+  function updateCollection() {
+    const wanted = availability?.value || 'all';
+    cards.forEach((card) => { card.hidden = wanted !== 'all' && card.dataset.available !== wanted; });
+    const ordered = [...cards].sort((a, b) => {
+      if (sort?.value === 'title') return a.dataset.title.localeCompare(b.dataset.title, 'fr');
+      if (sort?.value === 'price-asc') return Number(a.dataset.price) - Number(b.dataset.price);
+      if (sort?.value === 'price-desc') return Number(b.dataset.price) - Number(a.dataset.price);
+      return Number(a.dataset.position) - Number(b.dataset.position);
+    });
+    ordered.forEach((card) => grid?.append(card));
+    if (count) count.textContent = String(cards.filter((card) => !card.hidden).length);
+  }
+  cards.forEach((card, position) => { card.dataset.position = String(position); });
+  availability?.addEventListener('change', updateCollection);
+  sort?.addEventListener('change', updateCollection);
+</script>

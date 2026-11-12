@@ -1,0 +1,3 @@
+export interface Variant { id:string; title:string; price:number; compareAtPrice:number|null; available:boolean; option1:string|null; option2:string|null; option3:string|null; sku:string; grams:number }
+export interface ProductImage { id:string; alt:string; width:number; height:number; originalUrl:string; local:string }
+export interface Product { id:string; name:string; slug:string; url:string; originalUrl:string; descriptionHtml:string; vendor:string; productType:string; tags:string[]; currency:'MAD'; available:boolean; featured:boolean; variants:Variant[]; images:ProductImage[]; seo:{title:string;description:string} }

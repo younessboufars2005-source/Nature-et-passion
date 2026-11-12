@@ -1,0 +1,38 @@
+# Dependencies and Astro build output
+node_modules/
+dist/
+.astro/
+
+# Environment files and local secrets
+.env
+.env.*
+!.env.example
+.dev.vars
+.wrangler/
+
+# Logs and package-manager caches
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm/
+
+# Editor and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+coverage/
+
+# Local audit/download snapshots (not required by the Astro build)
+homepage-reference.html
+products-public.json
+collection-products-public.json
+collections-public.json
+shopify-collection-source/
+shopify-product-source/

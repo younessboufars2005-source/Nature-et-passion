@@ -1,0 +1,15 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+const { title='Nature & Passions', description="Nature & Passions est avant tout une histoire de passion, et nos produits en sont l'expression.", image='/images/banners/Nature_Passions_11.png' }=Astro.props;
+const canonical=new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="fr">
+  <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content={description}><link rel="canonical" href={canonical}><meta property="og:title" content={title}><meta property="og:description" content={description}><meta property="og:image" content={new URL(image,Astro.site)}><title>{title}</title></head>
+  <body><Header/><main><slot /></main><Footer/>
+    <div id="cart-drawer" class="cart-drawer" aria-hidden="true"><div class="cart-head"><h2>Votre panier</h2><button data-cart-close aria-label="Fermer">×</button></div><div id="cart-items"></div><div class="cart-total">Sous-total <strong id="cart-total">Dh 0.00 MAD</strong></div><button class="button checkout" disabled>Finalisation indisponible dans cette version</button><a href="/collections/tous-nos-produits" class="continue">Continuer les achats</a></div>
+    <div id="cart-overlay" data-cart-close></div><script is:inline src="/cart.js"></script>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+---
+import { collections } from '../lib/catalogue';
+---
+<header class="site-header">
+  <a class="skip" href="#content">Aller au contenu</a>
+  <div class="header-inner">
+    <button class="mobile-menu" aria-label="Menu" data-menu>☰</button>
+    <a href="/" class="brand"><span>Nature &amp; Passions</span></a>
+    <nav id="nav"><a href="/">Accueil</a><details><summary>Nos gammes</summary><div class="dropdown">{collections.map(([slug,title])=><a href={`/collections/${slug}`}>{title}</a>)}</div></details><a href="/collections/idees-cadeaux">Idée Cadeaux</a><details><summary>Nous connaitre</summary><div class="dropdown"><a href="/pages/nos-certifications">Nos certifications</a><a href="/pages/notre-laboratoire">Notre laboratoire</a><a href="/pages/bienfait-de-lapitherapie">Bienfait de l'apithérapie</a><a href="/pages/notre-catalogue">Notre catalogue</a><a href="/pages/contact">Contact</a></div></details><a href="/blogs/infos">Blogs</a></nav>
+    <div class="actions"><button data-search aria-label="Recherche">⌕</button><a href="/account/login" aria-label="Connexion">♙</a><button data-cart-open aria-label="Panier">Panier <span id="cart-count">0</span></button></div>
+  </div><form class="search" action="/search"><input name="q" placeholder="Recherche"><button>Rechercher</button></form>
+</header>
+<script is:inline>document.querySelector('[data-menu]')?.addEventListener('click',()=>document.querySelector('#nav')?.classList.toggle('open'));document.querySelector('[data-search]')?.addEventListener('click',()=>document.querySelector('.search')?.classList.toggle('open'));</script>

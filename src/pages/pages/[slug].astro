@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+export function getStaticPaths() {
+  const paths = [
+    ['nos-certifications','Nos certifications','La qualité de nos produits est au cœur de nos préoccupations.'],
+    ['notre-laboratoire','Notre laboratoire','Fidèle à notre exigence de qualité, nous apportons le plus grand soin à la préparation de nos produits au sein de notre laboratoire certifié de 600m2.'],
+    ['bienfait-de-lapitherapie',"Bienfait de l'apithérapie",'L’apithérapie est l’utilisation des produits de la ruche.'],
+    ['notre-catalogue','Notre catalogue','Découvrez notre catalogue Nature & Passions.'],
+    ['contact','Contact','Pour toute information, laissez-nous un commentaire.'],
+    ['condition-generale-de-ventes','CONDITION GÉNERAL DE VENTES','Cette page doit être vérifiée avec la version juridique actuellement publiée sur Shopify.']
+  ];
+  return paths.map(([slug,title,body]) => ({ params: { slug }, props: { page: { slug,title,body } } }));
+}
+const { page } = Astro.props;
+---
+<BaseLayout title={`${page.title} – Nature & Passions`}>
+  <section class="narrow content-page"><h1>{page.title}</h1><p>{page.body}</p></section>
+</BaseLayout>
+<style>.content-page{text-align:left}.content-page h1{text-align:left}</style>

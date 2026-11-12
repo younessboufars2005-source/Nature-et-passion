@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://natureetpassions.net/sitemap-index.xml

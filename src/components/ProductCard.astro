@@ -1,0 +1,15 @@
+---
+import type { Product } from '../types/catalogue';
+import { money, minPrice, isFrom } from '../lib/catalogue';
+const { product } = Astro.props as { product: Product };
+const sale = product.variants.some((variant) => variant.compareAtPrice && variant.compareAtPrice > variant.price);
+---
+<article class="product-card" data-available={String(product.available)} data-price={String(minPrice(product))} data-title={product.name}>
+  <a href={product.url} class="product-image">
+    {product.images[0] && <img src={product.images[0].local} alt={product.images[0].alt} loading="lazy">}
+    {sale && <span class="badge">Promo</span>}
+    {!product.available && <span class="badge sold">Épuisé</span>}
+  </a>
+  <h3><a href={product.url}>{product.name}</a></h3>
+  <p class="price">{isFrom(product) && 'Du '}{money(minPrice(product))}</p>
+</article>

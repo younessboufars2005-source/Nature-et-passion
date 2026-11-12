@@ -1,0 +1,4 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'; import ProductCard from '../components/ProductCard.astro'; import {products} from '../lib/catalogue'; const q=Astro.url.searchParams.get('q')||''; const found=q?products.filter(p=>(p.name+' '+p.seo.description).toLowerCase().includes(q.toLowerCase())):[];
+---
+<BaseLayout title="Recherche – Nature & Passions"><section><h1>Recherche</h1><form class="search-page"><input name="q" value={q} placeholder="Rechercher"><button class="button">Rechercher</button></form>{q&&<p>{found.length} résultat(s) pour « {q} »</p>}<div class="product-grid">{found.map(p=><ProductCard product={p}/>)}</div></section></BaseLayout><style>.search-page{display:flex;max-width:600px;margin:0 auto 35px}.search-page input{flex:1;padding:12px}</style>
